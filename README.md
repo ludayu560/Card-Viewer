@@ -1,6 +1,6 @@
 # Card Viewer
 
-A Windows image browser for quickly browsing camera photos on SD cards and other drives. Thumbnails appear progressively, so you can start browsing while the remaining images load.
+A HIF Windows image browser for quickly browsing camera photos on SD cards and other drives. Thumbnails appear progressively, so you can start browsing while the remaining images load. Specifically for HIF/HEIC files from Canon, Sony, Nikon, Fujifilm cameras. Works with other generic image types as well. 
 
 ## Getting started
 
