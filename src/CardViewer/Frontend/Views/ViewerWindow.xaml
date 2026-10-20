@@ -1,0 +1,39 @@
+<Window x:Class="CardViewer.ViewerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding Title}" Width="1100" Height="800" MinWidth="560" MinHeight="320" WindowStartupLocation="CenterOwner">
+  <Window.Resources><BooleanToVisibilityConverter x:Key="BoolToVisibility"/></Window.Resources>
+  <Window.InputBindings>
+    <KeyBinding Key="Left" Command="{Binding PreviousCommand}"/>
+    <KeyBinding Key="Right" Command="{Binding NextCommand}"/>
+    <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+  </Window.InputBindings>
+  <DockPanel>
+    <Border x:Name="ViewerHeader" DockPanel.Dock="Top" Margin="12,12,12,10" Padding="14" CornerRadius="10" Background="#202832" BorderBrush="#354253" BorderThickness="1">
+      <Grid>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,14,0">
+          <Button Content="←" Command="{Binding PreviousCommand}" ToolTip="Previous image (Left)" Padding="10,7" Margin="0,0,5,0" AutomationProperties.Name="Previous image"/>
+          <Button Content="→" Command="{Binding NextCommand}" ToolTip="Next image (Right)" Padding="10,7" AutomationProperties.Name="Next image"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+          <TextBlock Text="{Binding ImageName}" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip="{Binding ImageName}"/>
+          <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+            <Border Background="{Binding FormatTag.Background}" CornerRadius="4" Padding="6,2" Margin="0,0,8,0"><TextBlock Text="{Binding OriginalFormat}" Foreground="{Binding FormatTag.Foreground}" FontSize="10" FontWeight="SemiBold"/></Border>
+            <TextBlock Text="{Binding PositionLabel}" Foreground="#AEBBCB" VerticalAlignment="Center"/>
+          </StackPanel>
+          <TextBlock Text="{Binding Status}" Foreground="#AEBBCB" FontSize="11" TextTrimming="CharacterEllipsis" ToolTip="{Binding Status}" Margin="0,5,0,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+          <Button Content="✕" Command="{Binding CloseCommand}" ToolTip="Close viewer (Escape)" Padding="10,7" Margin="6,0,0,0" AutomationProperties.Name="Close viewer"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+    <ProgressBar x:Name="LoadProgress" DockPanel.Dock="Top" Height="4" Margin="12,0,12,8" Minimum="0" Maximum="100"
+                 Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}"
+                 IsIndeterminate="{Binding IsProgressIndeterminate}" Value="{Binding ProgressPercent, Mode=OneWay}"/>
+    <Image x:Name="FullImage" Source="{Binding DisplayedImage}" Stretch="Uniform" Margin="12,0,12,12"/>
+  </DockPanel>
+</Window>
+
+

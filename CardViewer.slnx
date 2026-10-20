@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CardViewer/CardViewer.csproj" />
+  </Folder>
+</Solution>
+

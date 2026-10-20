@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+    <StartupObject>CardViewer.Program</StartupObject>
+    <AssemblyName>CardViewer</AssemblyName>
+    <RootNamespace>CardViewer</RootNamespace>
+    <Product>Card Viewer</Product>
+    <Title>Card Viewer</Title>
+    <Description>Fast camera image browsing, selection and lossless export.</Description>
+    <Version>1.0.0</Version>
+    <ApplicationIcon>Assets/CardViewer.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Magick.NET-Q8-x64" Version="14.17.2" />
+    <Resource Include="Assets/CardViewer.ico" />
+    <Content Include="../../LICENSE" Link="LICENSE" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="$(NuGetPackageRoot)/magick.net-q8-x64/14.17.2/Notice.txt" Link="ThirdParty/Magick.NET-Notice.txt" CopyToPublishDirectory="PreserveNewest" />
+    <!-- Preserve the existing CLI/build verification entry points with tests kept outside production source. -->
+    <Compile Include="../../tests/CardViewer/**/*.cs" Link="Tests/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+<PropertyGroup>
+  <VerificationRoot>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../..'))</VerificationRoot>
+  <VerificationOutput>$(VerificationRoot)/artifacts/build-verification/$(Configuration)/$(TargetFramework)</VerificationOutput>
+  <VerificationHost Condition="'$(DotNetHostPath)' != ''">$(DotNetHostPath)</VerificationHost>
+  <VerificationHost Condition="'$(VerificationHost)' == ''">dotnet</VerificationHost>
+</PropertyGroup>
+<!-- Intentionally no Inputs/Outputs: incremental builds must verify and benchmark too. -->
+<Target Name="VerifyImagesAndBenchmark" AfterTargets="Build" Condition="'$(DesignTimeBuild)' != 'true' and '$(IsCrossTargetingBuild)' != 'true'">
+  <Message Importance="high" Text="Running image regression suite and cold-thumbnail-cache benchmark…" />
+  <Exec Command="&quot;$(VerificationHost)&quot; &quot;$(TargetPath)&quot; --verify-build &quot;$(VerificationRoot)/TestImages&quot; &quot;$(VerificationOutput)&quot;" WorkingDirectory="$(VerificationRoot)" ConsoleToMSBuild="true" StandardOutputImportance="high" StandardErrorImportance="high" Timeout="900000" />
+  <Message Importance="high" Text="Verification reports: $(VerificationOutput)/latest.txt and latest.json" />
+</Target>
+</Project>
+
+
+

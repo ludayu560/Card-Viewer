@@ -1,0 +1,49 @@
+# Downloaded SDK, package cache, and installer compiler (local bootstrap tools)
+/.tools/
+/.tools-sdk.zip
+
+# Generated application output, publish staging, installers, caches, and reports
+**/[Bb]in/
+**/[Oo]bj/
+/artifacts/
+TestResults/
+coverage/
+*.binlog
+*.trx
+*.coverage
+*.coveragexml
+
+# Visual Studio / Rider machine-specific state
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local configuration and signing credentials
+.env
+.env.*
+!.env.example
+!.env.template
+*.pfx
+*.p12
+
+# Editor backups and temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# Windows / macOS folder metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+._*
+
+# Keep TestImages, source icons, scripts, and documentation versioned:
+# the automatic build verification requires the packaged image fixtures.
+
+# Local development context, excluded from the published repository
+/DEVELOPER-NOTES.local.md
