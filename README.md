@@ -78,3 +78,5 @@ For implementation details, see the [architecture](docs/architecture.md), [test 
 Card Viewer is licensed under the [GNU General Public License v3.0](LICENSE) (GPL-3.0-only).
 
 Third-party libraries and sample images retain their own licenses and notices. See the bundled library notices and [sample attribution](docs/test-images.md).
+
+For Bela with <3
